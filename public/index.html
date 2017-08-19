@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <iframe name="iframe" src="" frameborder="0"></iframe>
+    <form action="/upload" target="iframe" enctype="multipart/form-data" method="post">
+        <p>附件：<input type="file" name="myfile[]" style=""></p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+    <input id="file" type="file" name="xhrfile[]" multiple>
+    <button id="uploadbtn">上传</button>
+</body>
+<script>
+    var uploadbtn = document.querySelector("#uploadbtn");
+    var form = new FormData();
+    console.log(form);
+    uploadbtn.addEventListener('click',function(params) {
+        [0,1].forEach(function(index) {
+            form.append('xhrfile', document.querySelector("#file").files[index]);
+        }, this);
+        
+       var oReq = new XMLHttpRequest();
+        oReq.open("POST", "/upload");
+        oReq.send(form);
+        debugger;
+    })
+    // form.set(xhrfile,document.querySelector("#file"))
+
+</script>
+</html>
